@@ -1616,30 +1616,35 @@ function save_data_to_local_file(data, filename) {
 	   
 	      print attributes
   */
-    int seperateCount = 0
-	for (int i = 0; i < printLine.length; i++){
+    var seperateCount = 0;
+	for (var i = 0; i < printLine.length; i++){
+	//where is %5 part????
 		
 		if(separateCount == 0) {
-			// x coord of box
+			// x coord of box 
+			var x = printLine[i] / _via_current_image_width; //percentage x/pixel size of entire frame 
+			var x_str = "{0:2f}".format(x);
 	    }
 	    if(separateCount == 1) {
 			// y coord of box
+			var y = printLine[i] / _via_current_image_height;
 	    }
 	    if(separateCount == 2) {
-			//width of box
+		    //width of box
+			var width = printLine[i]/_via_current_image_width;
 	    }
 	    if(separateCount == 3) {
-			height of box
+			//height of box
+			var height = printLine[i]/_via_current_image_height;
 	    }
 	    if(separateCount == 4) {
-		   name of box
-		   print string to box
+		   var boxName= printLine[i];
+		   //print string to box
+		   
 		   seperateCount = 0
 	    } 
-	    separateCount ++
+	    separateCount ++;
 	}
-
-	 
 	  
 }
 
