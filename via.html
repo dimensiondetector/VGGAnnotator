@@ -641,9 +641,6 @@
           <canvas id="image_canvas"></canvas>
           <canvas id="region_canvas">Sorry, your browser does not support HTML5 Canvas functionality which is required for this application.</canvas>
         </div>
-        <div id="d1">
-          <p>WOOO!</p>
-        </div>
 
         <div>
           <div class="text_panel" id="via_start_info_panel">Starting VGG Image Annotator ...</div>
@@ -1430,17 +1427,12 @@ function json_str_to_map(s) {
   return m;
 }
 
-var printLine = [];
 // ensure the exported json string conforms to RFC 4180
 // see: https://en.wikipedia.org/wiki/Comma-separated_values
 function map_to_json(m) {
   var s = [];
-
   for ( var key of m.keys() ) {
     var v   = m.get(key);
-    if(v != "rect" && v != null){
-      printLine.push(v)
-    }
     var si  = JSON.stringify(key);
     si += VIA_CSV_KEYVAL_SEP;
     si += JSON.stringify(v);
@@ -1597,55 +1589,19 @@ function pack_via_metadata(return_type) {
 }
 
 function save_data_to_local_file(data, filename) {
-  console.log(printLine[4] + " " + printLine[0] + " " + printLine[1] + " " + printLine[2] + " " + printLine[3])
-  console.log(printLine[9] + " " + printLine[5] + " " + printLine[6] + " " + printLine[7] + " " + printLine[8])
+  var a      = document.createElement('a');
+  a.href     = URL.createObjectURL(data);
+  a.target   = '_blank';
+  a.download = filename;
 
-  //To Edit Paragraph text
-  //document.getElementById("p1").innerHTML = printLine[4] + " " + printLine[0] + " " + printLine[1] + " " + printLine[2] + " " + printLine[3];
+  // simulate a mouse click event
+  var event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true
+  });
 
-  /* Loop to add paragraphs to div below image */
-  //Each string is a box.
-  //In order to test this currently, you need two boxes; hence two strings
-  var stringOne = '<p>' + printLine[4] + " " + printLine[0] + " " + printLine[1] + " " + printLine[2] + " " + printLine[3] + '</p>';
-  var stringTwo = '<p>' + printLine[9] + " " + printLine[5] + " " + printLine[6] + " " + printLine[7] + " " + printLine[8] + '</p>';
-  var divElement = document.getElementById('d1');
-  divElement.innerHTML = stringOne + stringTwo;
-  /*
-  for (int i = 0; i< number of boxes in an image; i++)
-       for(int j=0; j<attributes of a specific box(this is i.j);j++)
-	   
-	      print attributes
-  */
-    var seperateCount = 0;
-	for (var i = 0; i < printLine.length; i++){
-	//where is %5 part????
-		
-		if(separateCount == 0) {
-			// x coord of box 
-			var x = printLine[i] / _via_current_image_width; //percentage x/pixel size of entire frame 
-			var x_str = "{0:2f}".format(x);
-	    }
-	    if(separateCount == 1) {
-			// y coord of box
-			var y = printLine[i] / _via_current_image_height;
-	    }
-	    if(separateCount == 2) {
-		    //width of box
-			var width = printLine[i]/_via_current_image_width;
-	    }
-	    if(separateCount == 3) {
-			//height of box
-			var height = printLine[i]/_via_current_image_height;
-	    }
-	    if(separateCount == 4) {
-		   var boxName= printLine[i];
-		   //print string to box
-		   
-		   seperateCount = 0
-	    } 
-	    separateCount ++;
-	}
-	  
+  a.dispatchEvent(event);
 }
 
 //
@@ -3759,6 +3715,15 @@ window.addEventListener('keydown', function(e) {
     if ( e.which === 65 ) { // Ctrl + a
       sel_all_regions();
       e.preventDefault();
+      return;
+    }
+
+    if ( e.which === 67 ) { // Ctrl + c
+      if (_via_is_region_selected ||
+          _via_is_all_region_selected) {
+        copy_sel_regions();
+        e.preventDefault();
+      }
       return;
     }
 
