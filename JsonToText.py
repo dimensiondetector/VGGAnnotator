@@ -1,17 +1,23 @@
 import json
 
 with open('test.json') as json_data:
-    data = json.load(json_data) #load test json data
-    #print ( data)
+    data = json.load(json_data)
 
-    #for r in data['10548720_809096559166869_7732497753236727840_o.jpg459203']:
-
-    for p in data:
-        r = data[p]
-        for q in r['regions']:
-            s = r['regions'][q]
-            print "FUCK YES"
-            for m in s['shape_attributes']:
-                n = s['shape_attributes'][m]
+    for params in data:
+        parameterList = data[params]
+        print(parameterList)
+        for name in parameterList['filename']:
+            print(name)
+        for square in parameterList['regions']:
+            specificSquare = parameterList['regions'][square]
+            print(" \n YES")
+            print("-------")
+            print(specificSquare)
+            print("-------")
+            for k in specificSquare['region_attributes']:
+                l = specificSquare['region_attributes'][k]
+                print(l)
+            for m in specificSquare['shape_attributes']:
+                n = specificSquare['shape_attributes'][m]
                 if (n != "rect"):
                     print(n)
