@@ -4,11 +4,11 @@ objects = {
     'car': 1,
     'truck': 2,
     'streetsign': 3, #ex.stop sign
-	'trafficlight': 4, #red,yellow,green
+    'trafficlight': 4, #red,yellow,green
     'person': 5,
-	'door' : 6,
-	'window' : 7,
-	'building': 8
+    'door' : 6,
+    'window' : 7,
+    'building': 8
 }
 
 with open('test.json') as json_data:
