@@ -33,7 +33,8 @@ with open('test.json') as json_data:
         nameString = nameString.replace(".gif", ".txt")
         nameString = nameString.replace(".Gif", ".txt")
         nameString = nameString.replace(".GIF", ".txt")
-
+  
+        
         #Boolean to tell if first value in text file
         firstLine = True
 
@@ -49,13 +50,15 @@ with open('test.json') as json_data:
             else:
                 #Create text file with write capabilities
                 f = open(nameString, 'w')
-
+			    #f.open()
+			    
                 print("\n-----")
                 print(objectName)
                 print("-----\n")
 
                 if (firstLine == True):
-                    f.write(objectName)
+					objectCompare =objectName.lower()
+				    f.write(objects[objectCompare]) #f.write(objectName)                                                            
                     firstLine = False
                 #If object name is not the first object for this image print the name on a new line
                 else:
@@ -63,7 +66,7 @@ with open('test.json') as json_data:
                         print("Error in file: " + nameString)
                         print("Object: " + objectName + "does not follow rectangle format.")
                     else:
-                        f.write("\n" + objectName)
+                        f.write("\n" + objects[objectCompare])
 
                         #Obtain square-object x y width and height attributes
                         for objectDetails in specificSquare['shape_attributes']:
