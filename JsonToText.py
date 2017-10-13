@@ -7,7 +7,8 @@ objects = {
 	'trafficlight': 4, #red,yellow,green
     'person': 5,
 	'door' : 6,
-	'window' : 7
+	'window' : 7,
+	'building': 8
 }
 
 with open('test.json') as json_data:
