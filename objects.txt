@@ -1,0 +1,13 @@
+car 1
+truck 2
+semi 3
+streetsign 4
+trafficlight 5
+firehydrant 7
+person 8
+door 9
+window 10
+building 11
+
+
+   
