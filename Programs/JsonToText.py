@@ -127,19 +127,22 @@ with open('test.json') as json_data:
                 #=================================================
                 #            READ SQUARE ATTRIBUTES LOOP
                 #=================================================
-
+                
+				
                 #Obtain square-object x y width and height attributes
-                for objectDetails in specificSquare['shape_attributes']:
-                    objectDimensions = specificSquare['shape_attributes'][objectDetails]
-                    #Do not obtain rectangle parameter
-                    if (objectDimensions != "rect" and objectDimensions != "circle" and objectDimensions != "ellipse" and objectDimensions != "polygon" and objectDimensions != "point"):
-                        if (objectDimensions == "x" or objectDimensions == "width"):
-                            objectDimensions = float(objectDimensions / width)
-                            f.write(" " + str(objectDimensions))
-                        else:
-                            objectDimensions = float(objectDimensions / height)
-                            f.write(" " + str(objectDimensions))
-
+                objectX = specificSquare['shape_attributes']['x']
+                objectY = specificSquare['shape_attributes']['y']
+                objectW = specificSquare['shape_attributes']['width']
+                objectH = specificSquare['shape_attributes']['height']
+                
+                objectX = objectX + (objectW/2)
+                objectY = objectY + (objectH/2)
+                
+                objectX = float(objectX / width)
+                objectY = float(objectY / height)
+                objectW = float(objectW / width)
+                objectH = float(objectH / height)
+                f.write(" " + str(objectX) + " " + str(objectY) + " " + str(objectW) + " " + str(objectH))
         # Print new line to seperate image print outs on console.
         print("\n" + nameString + " has " + str(count) + " verified objects.")
         #Close file
